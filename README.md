@@ -1,1 +1,1 @@
-# Flows-Community-Registry
+# Community Flows app registry
