@@ -1,17 +1,17 @@
 {
   "apps": {
-    "papaya": {
-      "name": "Papaya",
-      "description": "App containing papayas.",
+    "bacon": {
+      "name": "Bacon",
+      "description": "App containing bacon.",
       "blockStyle": {
         "iconUrl": "https://registry.spaceflows.dev/icons/papaya.png",
         "color": "#fa8d33"
       },
       "appMetadataUrl": "https://registry.spaceflows.dev/papaya.json"
     },
-    "avocado": {
-      "name": "Avocado",
-      "description": "App containing avocados.",
+    "cabbage": {
+      "name": "Cabbage",
+      "description": "App containing cabbage.",
       "blockStyle": {
         "iconUrl": "https://registry.spaceflows.dev/icons/avocado.png",
         "color": "#7ca545"
