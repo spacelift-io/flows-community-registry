@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const APPS_DIR = 'apps';
-const REGISTRY_FILE = 'docs/registry.json';
+const REGISTRY_FILE = 'registry.json';
 const BASE_URL = 'https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps';
 
 function readJsonFile(filePath) {
@@ -83,11 +83,6 @@ function main() {
   
   const registry = buildRegistry();
   
-  // Ensure docs directory exists
-  const docsDir = path.dirname(REGISTRY_FILE);
-  if (!fs.existsSync(docsDir)) {
-    fs.mkdirSync(docsDir, { recursive: true });
-  }
 
   // Write the registry file
   fs.writeFileSync(REGISTRY_FILE, JSON.stringify(registry, null, 2) + '\n');
