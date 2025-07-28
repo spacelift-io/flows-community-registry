@@ -5,7 +5,7 @@ const path = require('path');
 
 const APPS_DIR = 'apps';
 const REGISTRY_FILE = 'docs/registry.json';
-const BASE_URL = 'https://raw.githubusercontent.com/spacelift-io/flows-community-registry/main/apps';
+const BASE_URL = 'https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps';
 
 function readJsonFile(filePath) {
   try {
