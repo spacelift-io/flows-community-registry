@@ -1,0 +1,6 @@
+{
+  "name": "OpenRouter",
+  "description": "OpenRouter is the unified platform for LLMs",
+  "color": "#ffffff",
+  "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-openrouter/refs/heads/main/versions.json"
+}
