@@ -8,6 +8,15 @@
         "color": "#5b59ec"
       },
       "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-featurebase/refs/heads/main/versions.json"
+    },
+    "openrouter": {
+      "name": "OpenRouter",
+      "description": "OpenRouter is the unified platform for LLMs",
+      "blockStyle": {
+        "iconUrl": "https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps/openrouter/logo.svg",
+        "color": "#ffffff"
+      },
+      "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-openrouter/refs/heads/main/versions.json"
     }
   }
 }
