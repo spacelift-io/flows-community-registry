@@ -1,0 +1,38 @@
+name: Update Registry
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Rebuild registry.json
+        run: |
+          node .github/scripts/rebuild-registry.js
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code docs/registry.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/registry.json
+          git commit -m "Update registry.json [skip ci]"
+          git push

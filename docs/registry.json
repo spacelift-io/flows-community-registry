@@ -1,22 +1,13 @@
 {
   "apps": {
-    "bacon": {
-      "name": "Bacon",
-      "description": "App containing bacon.",
+    "featurebase": {
+      "name": "Featurebase",
+      "description": "Featurebase is the next-gen support & feedback platform",
       "blockStyle": {
-        "iconUrl": "https://registry.spaceflows.dev/icons/papaya.png",
-        "color": "#fa8d33"
+        "iconUrl": "https://raw.githubusercontent.com/spacelift-io/flows-community-registry/main/apps/featurebase/icon.png",
+        "color": "#5b59ec"
       },
-      "appMetadataUrl": "https://registry.spaceflows.dev/papaya.json"
-    },
-    "cabbage": {
-      "name": "Cabbage",
-      "description": "App containing cabbage.",
-      "blockStyle": {
-        "iconUrl": "https://registry.spaceflows.dev/icons/avocado.png",
-        "color": "#7ca545"
-      },
-      "appMetadataUrl": "https://registry.spaceflows.dev/avocado.json"
+      "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-featurebase/refs/heads/main/versions.json"
     }
   }
 }
