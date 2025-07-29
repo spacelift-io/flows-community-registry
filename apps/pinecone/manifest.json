@@ -2,5 +2,5 @@
   "name": "Pinecone",
   "description": "Pinecone is a vector database for LLMs",
   "color": "#1c17ff",
-  "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-pinecone/refs/heads/main/package.json"
+  "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-pinecone/refs/heads/main/versions.json"
 }

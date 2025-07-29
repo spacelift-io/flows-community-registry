@@ -26,6 +26,15 @@
         "color": "#ffffff"
       },
       "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-openrouter/refs/heads/main/versions.json"
+    },
+    "pinecone": {
+      "name": "Pinecone",
+      "description": "Pinecone is a vector database for LLMs",
+      "blockStyle": {
+        "iconUrl": "https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps/pinecone/logo.svg",
+        "color": "#1c17ff"
+      },
+      "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-pinecone/refs/heads/main/versions.json"
     }
   }
 }
