@@ -1,0 +1,6 @@
+{
+    "name": "HCP Terraform",
+    "description": "HCP Terraform is a managed service for Terraform",
+    "color": "#a55cff",
+    "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-hcp-terraform/refs/heads/main/versions.json"
+}
