@@ -18,6 +18,15 @@
       },
       "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-clickup/refs/heads/main/versions.json"
     },
+    "conversations": {
+      "name": "Conversations",
+      "description": "Conversations provides utilities for managing conversations with LLM agents",
+      "blockStyle": {
+        "iconUrl": "https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps/conversations/logo.png",
+        "color": "#ffc107"
+      },
+      "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-conversations/refs/heads/main/versions.json"
+    },
     "featurebase": {
       "name": "Featurebase",
       "description": "Featurebase is the next-gen support & feedback platform",
