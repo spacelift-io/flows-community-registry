@@ -5,7 +5,7 @@ const path = require('path');
 
 const APPS_DIR = 'apps';
 const REGISTRY_FILE = 'registry.json';
-const BASE_URL = 'https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps';
+const BASE_ICON_URL = 'https://registry.useflows.com/community/apps';
 
 function readJsonFile(filePath) {
   try {
@@ -22,7 +22,7 @@ function findIconFile(appPath) {
     const files = fs.readdirSync(appPath);
     const iconFile = files.find(file => {
       const ext = path.extname(file).toLowerCase();
-      return ext === '.png' || ext === '.svg';
+      return ext === '.png' || ext === '.svg' || ext === '.jpg' || ext === '.jpeg';
     });
     return iconFile || null;
   } catch (error) {
@@ -60,7 +60,7 @@ function buildRegistry() {
     }
 
     const iconFile = findIconFile(appPath);
-    const iconUrl = iconFile ? `${BASE_URL}/${appDir}/${iconFile}` : null;
+    const iconUrl = iconFile ? `${BASE_ICON_URL}/${appDir}/${iconFile}` : null;
 
     registry.apps[appDir] = {
       name: manifest.name,
@@ -79,7 +79,7 @@ function buildRegistry() {
 }
 
 function main() {
-  console.log('Rebuilding registry.json...');
+  console.log('Generating registry.json...');
   
   const registry = buildRegistry();
   
@@ -87,7 +87,7 @@ function main() {
   // Write the registry file
   fs.writeFileSync(REGISTRY_FILE, JSON.stringify(registry, null, 2) + '\n');
   
-  console.log(`Registry updated with ${Object.keys(registry.apps).length} apps`);
+  console.log(`Registry generated with ${Object.keys(registry.apps).length} apps`);
 }
 
 if (require.main === module) {

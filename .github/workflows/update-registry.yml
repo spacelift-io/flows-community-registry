@@ -1,38 +1,57 @@
-name: Update Registry
+name: Generate Registry
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  update-registry:
+  generate-registry:
     runs-on: ubuntu-latest
+    environment: Deployment
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "20"
 
-      - name: Rebuild registry.json
-        run: |
-          node .github/scripts/rebuild-registry.js
+      - name: Generate registry.json
+        run: node .github/scripts/generate-registry.js
 
-      - name: Check for changes
-        id: git-check
+      - name: Upload icons to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
         run: |
-          git add registry.json
-          git diff --cached --exit-code registry.json || echo "changed=true" >> $GITHUB_OUTPUT
+          # Upload all icons to R2
+          for app_dir in apps/*/; do
+            if [ -d "$app_dir" ]; then
+              app_name=$(basename "$app_dir")
+              echo "Processing app: $app_name"
+              
+              # Find icon files (svg, png, jpg, jpeg)
+              for icon in "$app_dir"*.{svg,png,jpg,jpeg}; do
+                if [ -f "$icon" ]; then
+                  icon_filename=$(basename "$icon")
+                  echo "Uploading icon: $icon_filename for app: $app_name"
+                  
+                  aws s3 cp "$icon" "s3://${{ secrets.R2_BUCKET }}/community/apps/$app_name/$icon_filename" \
+                    --endpoint-url "${{ secrets.R2_ENDPOINT_URL }}" \
+                    --content-type "$(file -b --mime-type "$icon")"
+                fi
+              done
+            fi
+          done
 
-      - name: Commit and push changes
-        if: steps.git-check.outputs.changed == 'true'
+      - name: Upload registry.json to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "Update registry.json [skip ci]"
-          git push
+          aws s3 cp registry.json "s3://${{ secrets.R2_BUCKET }}/community/registry.json" \
+            --endpoint-url "${{ secrets.R2_ENDPOINT_URL }}" \
+            --content-type "application/json"

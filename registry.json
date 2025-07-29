@@ -36,6 +36,15 @@
       },
       "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-featurebase/refs/heads/main/versions.json"
     },
+    "hcp-terraform": {
+      "name": "HCP Terraform",
+      "description": "HCP Terraform is a managed service for Terraform",
+      "blockStyle": {
+        "iconUrl": "https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps/hcp-terraform/logo.svg",
+        "color": "#a55cff"
+      },
+      "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-hcp-terraform/refs/heads/main/versions.json"
+    },
     "openrouter": {
       "name": "OpenRouter",
       "description": "OpenRouter is the unified platform for LLMs",
