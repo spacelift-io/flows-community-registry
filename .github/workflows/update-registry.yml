@@ -1,4 +1,4 @@
-name: Generate Registry
+name: Generate registry
 
 on:
   workflow_dispatch:
@@ -7,6 +7,11 @@ jobs:
   generate-registry:
     runs-on: ubuntu-latest
     environment: Deployment
+
+    env:
+      AWS_DEFAULT_REGION: auto
+      R2_ENDPOINT_URL: https://5f0d4105431f10a4af1e1f0266f26a97.r2.cloudflarestorage.com
+      R2_BUCKET: registry-useflows-com
 
     steps:
       - name: Checkout repository
@@ -22,9 +27,8 @@ jobs:
 
       - name: Upload icons to R2
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
+          AWS_ACCESS_KEY_ID: ${{ secrets.FLOWS_REGISTRY_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FLOWS_REGISTRY_R2_SECRET_ACCESS_KEY }}
         run: |
           # Upload all icons to R2
           for app_dir in apps/*/; do
@@ -38,8 +42,8 @@ jobs:
                   icon_filename=$(basename "$icon")
                   echo "Uploading icon: $icon_filename for app: $app_name"
                   
-                  aws s3 cp "$icon" "s3://${{ secrets.R2_BUCKET }}/community/apps/$app_name/$icon_filename" \
-                    --endpoint-url "${{ secrets.R2_ENDPOINT_URL }}" \
+                  aws s3 cp "$icon" "s3://${R2_BUCKET}/community/apps/$app_name/$icon_filename" \
+                    --endpoint-url "${R2_ENDPOINT_URL}" \
                     --content-type "$(file -b --mime-type "$icon")"
                 fi
               done
@@ -48,10 +52,9 @@ jobs:
 
       - name: Upload registry.json to R2
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
+          AWS_ACCESS_KEY_ID: ${{ secrets.FLOWS_REGISTRY_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FLOWS_REGISTRY_R2_SECRET_ACCESS_KEY }}
         run: |
-          aws s3 cp registry.json "s3://${{ secrets.R2_BUCKET }}/community/registry.json" \
-            --endpoint-url "${{ secrets.R2_ENDPOINT_URL }}" \
+          aws s3 cp registry.json "s3://${R2_BUCKET}/community/registry.json" \
+            --endpoint-url "${R2_ENDPOINT_URL}" \
             --content-type "application/json"
