@@ -1,0 +1,6 @@
+{
+    "name": "Segment",
+    "description": "Segment is a customer data platform",
+    "color": "#42ae78",
+    "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-segment/refs/heads/main/versions.json"
+}
