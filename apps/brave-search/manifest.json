@@ -1,0 +1,6 @@
+{
+  "name": "Brave Search",
+  "description": "Brave Search provides programmatic web search capabilities",
+  "color": "#df3826",
+  "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-brave-search/refs/heads/main/versions.json"
+}
