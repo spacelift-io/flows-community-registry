@@ -1,5 +1,14 @@
 {
   "apps": {
+    "brave-search": {
+      "name": "Brave Search",
+      "description": "Brave Search provides programmatic web search capabilities",
+      "blockStyle": {
+        "iconUrl": "https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps/brave-search/logo.png",
+        "color": "#df3826"
+      },
+      "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-brave-search/refs/heads/main/versions.json"
+    },
     "clickup": {
       "name": "ClickUp",
       "description": "ClickUp is an all-in-one productivity platform for tasks, docs, and projects",
