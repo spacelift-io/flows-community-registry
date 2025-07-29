@@ -53,6 +53,15 @@
         "color": "#1c17ff"
       },
       "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-pinecone/refs/heads/main/versions.json"
+    },
+    "segment": {
+      "name": "Segment",
+      "description": "Segment is a customer data platform",
+      "blockStyle": {
+        "iconUrl": "https://raw.githubusercontent.com/spacelift-io/flows-community-registry/refs/heads/main/apps/segment/logo.png",
+        "color": "#42ae78"
+      },
+      "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-segment/refs/heads/main/versions.json"
     }
   }
 }
