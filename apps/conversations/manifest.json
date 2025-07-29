@@ -1,0 +1,6 @@
+{
+  "name": "Conversations",
+  "description": "Conversations provides utilities for managing conversations with LLM agents",
+  "color": "#ffc107",
+  "appMetadataUrl": "https://raw.githubusercontent.com/spacelift-io/flows-app-conversations/refs/heads/main/versions.json"
+}
