@@ -1,0 +1,86 @@
+# This workflow is not meant to be run directly.
+# It is called by app repos to generate an index with app versions.
+# It is triggered by the `workflow_call` event.
+name: Release app version
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: "Working directory for the upload"
+        required: false
+        type: string
+        default: "."
+
+jobs:
+  # Release Job: Creates GitHub release and updates version registry
+  # Only runs on semver tag pushes (v1.0.0, v2.1.3, etc.)
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ inputs.working-directory }}
+
+      - name: Bundle
+        run: npm run bundle
+        working-directory: ${{ inputs.working-directory }}
+
+      # Create a GitHub release with the bundle attached
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ inputs.working-directory }}/bundle.tar.gz
+          draft: false # Ensure release is published immediately
+          prerelease: false # Mark as stable release
+
+      - name: Remove bundle file
+        run: rm -f bundle.tar.gz
+        working-directory: ${{ inputs.working-directory }}
+
+      # Wait for the release to be fully processed. Otherwise, the versions.json
+      # might not be updated correctly due to GitHub's eventual consistency.
+      # This is a workaround for the issue where the release is not immediately
+      # available after creation.
+      - name: Sleep for 30 seconds
+        run: sleep 30
+
+      # Generate versions.json containing all published releases
+      # This file serves as a registry for the Flows platform
+      - name: Build versions.json
+        run: |
+          gh api repos/${{ github.repository }}/releases --paginate | jq '
+            map(select(.draft == false and .prerelease == false)) |
+            map({
+              version: (.tag_name | sub("^v"; "")),
+              artifactUrl: (.assets[] | select(.name == "bundle.tar.gz") | .browser_download_url),
+              artifactChecksum: (.assets[] | select(.name == "bundle.tar.gz") | .digest)
+            }) |
+            {versions: .}
+          ' > versions.new.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # Push the updated versions.json to main branch
+      # Note: This requires the GitHub Actions bot to have push access to main
+      # Configure this in repository settings under branch protection rules
+      - name: Push versions.json to main
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git fetch origin main
+          git checkout main
+          mv versions.new.json versions.json
+          git add versions.json
+          git commit -m "Update versions.json with release ${{ github.ref_name }}" || exit 0
+          git push origin main
